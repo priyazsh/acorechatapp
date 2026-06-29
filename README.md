@@ -36,6 +36,9 @@ API EndPoints
 - localhost:3000/api/messages/users, GET, JWT auth, list users and status
 - localhost:3000/api/messages/:id, GET, JWT auth, get user msgs 
 
+
+## Postman 
+postman collection file is at [AcoreChat.postman_collection.json](https://github.com/priyazsh/acorechatapp/blob/main/AcoreChat.postman_collection.json)
 ## Screenshots
 
 <img src="screenshots/BothUserPov.png"/>
