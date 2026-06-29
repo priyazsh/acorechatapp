@@ -36,6 +36,10 @@ API EndPoints
 - localhost:3000/api/messages/users, GET, JWT auth, list users and status
 - localhost:3000/api/messages/:id, GET, JWT auth, get user msgs 
 
+## Screenshots
+
+<img src="screenshots/BothUserPov.png"/>
+<img src="screenshots/OneUserPov.png"/>
 
 
 ### Off Topic 
