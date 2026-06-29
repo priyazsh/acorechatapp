@@ -40,8 +40,11 @@ API EndPoints
 
 ## Postman 
 postman collection file is at [AcoreChat.postman_collection.json](https://github.com/priyazsh/acorechatapp/blob/main/AcoreChat.postman_collection.json)
-## Screenshots
 
+## Video Preview
+- https://youtu.be/Y8D7MfC15io
+
+## Screenshots
 <img src="screenshots/BothUserPov.png"/>
 <img src="screenshots/OneUserPov.png"/>
 
