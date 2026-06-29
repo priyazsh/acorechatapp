@@ -27,7 +27,7 @@ now backend will run at localhost:3000
 #### Database
 Use MySQL
 
-first add your mysql login id and password in inside backend/.env and then just run the sql query to init the db and create the tabless from `schema.sql` file 
+first add your mysql login id and password in inside backend/.env and then just run the sql query to init the db and create the tabless from `schema.sql` file just in case if not created by server initialization 
 
 
 API EndPoints
@@ -46,6 +46,6 @@ postman collection file is at [AcoreChat.postman_collection.json](https://github
 
 
 ### Off Topic 
-my best work till now which got me 450+ stars on github, and 150+ emails on waitlist as i am relaunching
+my best work till now which got me 450+ stars on github, and 150+ emails on waitlist as i am relaunching, checkout is-a.software repo 
 - https://github.com/is-a-software/is-a-software
 
