@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
 
 export default function Register() {
   const [name, setName] = useState('')
@@ -8,7 +7,7 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
   const [submitting, setSubmitting] = useState(false)
-  const { login } = useAuth()
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
 
   function validate() {
@@ -37,8 +36,8 @@ export default function Register() {
       const data = await res.json()
       setSubmitting(false)
       if (!res.ok) return setErrors(data.errors || ['Registration failed'])
-      login(data.token, data.user)
-      navigate('/')
+      setSuccess(true)
+      setTimeout(() => navigate('/login'), 1500)
     } catch {
       setSubmitting(false)
       setErrors(['Connection failed'])
@@ -84,6 +83,7 @@ export default function Register() {
         <p className="switch">
           Have an account? <Link to="/login">Sign in</Link>
         </p>
+        {success && <p className="success-msg">Account created! Redirecting to login...</p>}
       </form>
     </div>
   )

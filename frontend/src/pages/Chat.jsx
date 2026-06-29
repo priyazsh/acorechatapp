@@ -26,6 +26,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([])
   const [connected, setConnected] = useState(false)
   const messagesEndRef = useRef(null)
+  const selectedUserRef = useRef(null)
 
   useEffect(() => {
     socket = io('http://localhost:3000', { auth: { token } })
@@ -34,7 +35,8 @@ export default function Chat() {
     socket.on('disconnect', () => setConnected(false))
 
     socket.on('private message', (msg) => {
-      if (selectedUser && (msg.sender_id === selectedUser.id || msg.receiver_id === selectedUser.id)) {
+      const current = selectedUserRef.current
+      if (current && (msg.sender_id === current.id || msg.receiver_id === current.id)) {
         setMessages((prev) => [...prev, msg])
       }
     })
@@ -51,6 +53,10 @@ export default function Chat() {
   }, [token])
 
   useEffect(() => {
+    selectedUserRef.current = selectedUser
+  }, [selectedUser])
+
+  useEffect(() => {
     fetch('http://localhost:3000/api/messages/users', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -61,6 +67,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!selectedUser) return
+    setMessages([])
     fetch(`http://localhost:3000/api/messages/${selectedUser.id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })

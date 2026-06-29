@@ -112,6 +112,12 @@ input, button {
   cursor: not-allowed;
 }
 
+.success-msg {
+  color: #4caf50;
+  font-size: 14px;
+  text-align: center;
+}
+
 .auth-form .switch {
   text-align: center;
   font-size: 14px;

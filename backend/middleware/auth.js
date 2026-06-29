@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'acore_chat_secret_key_change_in_prod';
+const JWT_SECRET = process.env.JWT_SECRET || 'acorechatsecret12345abcd';
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];

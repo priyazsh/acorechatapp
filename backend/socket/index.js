@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const pool = require('../config/db');
+const { getPool } = require('../config/db');
 const { JWT_SECRET } = require('../middleware/auth');
 
 function setupSocket(io) {
@@ -18,7 +18,7 @@ function setupSocket(io) {
 
     socket.join(`user:${socket.user.id}`);
 
-    await pool.query(
+    await getPool().query(
       'UPDATE users SET online_status = ?, last_seen = NOW() WHERE id = ?',
       ['online', socket.user.id]
     );
@@ -31,7 +31,7 @@ function setupSocket(io) {
           return callback?.({ error: 'Invalid message' });
         }
 
-        const [result] = await pool.query(
+        const [result] = await getPool().query(
           'INSERT INTO messages (sender_id, receiver_id, message) VALUES (?, ?, ?)',
           [socket.user.id, receiverId, message.trim()]
         );
@@ -58,7 +58,7 @@ function setupSocket(io) {
     socket.on('disconnect', async () => {
       console.log(`User disconnected: ${socket.user.name}`);
 
-      await pool.query(
+      await getPool().query(
         'UPDATE users SET online_status = ?, last_seen = NOW() WHERE id = ?',
         ['offline', socket.user.id]
       );

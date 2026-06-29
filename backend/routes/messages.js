@@ -1,12 +1,12 @@
 const express = require('express');
-const pool = require('../config/db');
+const { getPool } = require('../config/db');
 const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
 router.get('/users', authenticateToken, async (req, res) => {
   try {
-    const [rows] = await pool.query(
+    const [rows] = await getPool().query(
       'SELECT id, name, online_status, last_seen FROM users WHERE id != ? ORDER BY name',
       [req.user.id]
     );
@@ -20,7 +20,7 @@ router.get('/users', authenticateToken, async (req, res) => {
 router.get('/:userId', authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
-    const [rows] = await pool.query(
+    const [rows] = await getPool().query(
       `SELECT m.*, u.name as sender_name
        FROM messages m
        JOIN users u ON u.id = m.sender_id

@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
-const pool = require('./config/db');
+const { initPool } = require('./config/db');
 const authRoutes = require('./routes/auth');
 const messageRoutes = require('./routes/messages');
 const setupSocket = require('./socket');
@@ -25,8 +27,9 @@ const PORT = process.env.PORT || 3000;
 
 async function init() {
   try {
-    const conn = await pool.getConnection();
-    await conn.query(`
+    const pool = await initPool();
+
+    await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(50) NOT NULL,
@@ -37,7 +40,7 @@ async function init() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-    await conn.query(`
+    await pool.query(`
       CREATE TABLE IF NOT EXISTS messages (
         id INT AUTO_INCREMENT PRIMARY KEY,
         sender_id INT NOT NULL,
@@ -48,7 +51,6 @@ async function init() {
         FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
       )
     `);
-    conn.release();
     console.log('Database tables ready');
   } catch (err) {
     console.error('DB init error:', err.message);

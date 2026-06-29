@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const pool = require('../config/db');
+const { getPool } = require('../config/db');
 const { generateToken } = require('../middleware/auth');
 
 const router = express.Router();
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ errors: validationErrors });
     }
 
-    const [existing] = await pool.query(
+    const [existing] = await getPool().query(
       'SELECT id FROM users WHERE email = ?',
       [email]
     );
@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
     }
 
     const hashed = await bcrypt.hash(password, 10);
-    const [result] = await pool.query(
+    const [result] = await getPool().query(
       'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
       [name.trim(), email.trim().toLowerCase(), hashed]
     );
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ errors: validationErrors });
     }
 
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email.trim().toLowerCase()]);
+    const [rows] = await getPool().query('SELECT * FROM users WHERE email = ?', [email.trim().toLowerCase()]);
     if (!rows.length) {
       return res.status(401).json({ errors: ['Invalid email or password'] });
     }
