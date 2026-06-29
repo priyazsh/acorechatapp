@@ -52,7 +52,6 @@
                   "const json = pm.response.json();",
                   "if (pm.response.code === 200 && json.token) {",
                   "  pm.collectionVariables.set('token', json.token);",
-                  "  pm.collectionVariables.set('userId', String(json.user.id));",
                   "}"
                 ],
                 "type": "text/javascript"
@@ -98,7 +97,7 @@
               "port": "3000",
               "path": ["api", "messages", "users"]
             },
-            "description": "GET /api/messages/users"
+            "description": "GET /api/messages/users — copy an id for next request"
           }
         },
         {
@@ -109,13 +108,13 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:3000/api/messages/{{userId}}",
+              "raw": "http://localhost:3000/api/messages/{{otherUserId}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
-              "path": ["api", "messages", "{{userId}}"]
+              "path": ["api", "messages", "{{otherUserId}}"]
             },
-            "description": "GET /api/messages/:userId"
+            "description": "GET /api/messages/:otherUserId — set otherUserId from List Users"
           }
         }
       ],
@@ -129,7 +128,7 @@
       "type": "string"
     },
     {
-      "key": "userId",
+      "key": "otherUserId",
       "value": "",
       "type": "string"
     }
