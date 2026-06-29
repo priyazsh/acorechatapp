@@ -25,6 +25,7 @@ npm run start
 now backend will run at localhost:3000
 
 #### Database
+> PS: i dont know MongoDB so i used a sql database
 Use MySQL
 
 first add your mysql login id and password in inside backend/.env and then just run the sql query to init the db and create the tabless from `schema.sql` file just in case if not created by server initialization 
