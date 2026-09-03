@@ -14,7 +14,7 @@
     "dotenv": "^17.4.2",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.0",
+    "mysql2": "^3.23.1",
     "nodemon": "^3.1.14",
     "socket.io": "^4.8.3"
   }
