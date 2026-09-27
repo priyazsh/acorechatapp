@@ -8,6 +8,7 @@ export default function Message({ message, isOwn }) {
     <div className={`message ${isOwn ? 'own' : 'other'}`}>
       <div className="bubble">
         <p>{message.message}</p>
+        <p>boycott acore and build audanweb</p>
         <span className="time">{time}</span>
       </div>
     </div>
